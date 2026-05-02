@@ -4,8 +4,8 @@ import boto3
 import pandas as pd
 
 
-def build_s3_key(prefix: str, run_date: str, filename: str) -> str:
-    return f"{prefix}/run_date={run_date}/{filename}"
+def build_s3_key(prefix: str, ingest_date: str, filename: str) -> str:
+    return f"{prefix}/ingest_date={ingest_date}/{filename}"
 
 
 def write_dataframe_to_parquet(

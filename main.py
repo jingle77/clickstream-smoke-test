@@ -19,6 +19,7 @@ def main() -> None:
         raise ValueError("S3_PREFIX is required but was not provided.")
 
     resolved_run_date = settings.run_date or get_utc_run_date()
+    ingest_date = resolved_run_date
     file_timestamp = get_utc_timestamp().replace(":", "-")
     filename = f"part-{file_timestamp}.parquet"
 
@@ -38,7 +39,7 @@ def main() -> None:
 
     s3_key = build_s3_key(
         prefix=settings.s3_prefix,
-        run_date=resolved_run_date,
+        ingest_date=ingest_date,
         filename=filename,
     )
 
@@ -55,6 +56,7 @@ def main() -> None:
     print(f"S3 bucket: {settings.s3_bucket}")
     print(f"S3 key: {s3_key}")
     print(f"Run date: {resolved_run_date}")
+    print(f"Ingest date: {ingest_date}")
     print(f"Row count requested: {settings.row_count}")
     print(f"Rows generated: {len(df)}")
     print(f"Local parquet output: {file_path}")
